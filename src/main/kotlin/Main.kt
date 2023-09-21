@@ -1,6 +1,9 @@
 import view.MenuPrincipalView
 
 fun main() {
+
+    // Link da gravação: https://drive.google.com/file/d/1qkoS_CDB1cumf9Qfvsh2oThhTn3ezN2l/view
+
 //    Clientes Cadastrados:
 //    id|nome  |cpf         |endereco                                         |
 //    --+------+------------+-------------------------------------------------+
