@@ -1,4 +1,4 @@
-package service
+package service.table
 
 import connection.Connect
 import java.sql.SQLException
@@ -7,7 +7,7 @@ import java.sql.SQLException
 class TableClienteService {
     private val connection = Connect().creatConnect()
 
-    fun addCliente(nome: String, cpf: String, endereco: String?) {
+    fun addCliente(nome: String, cpf: String, endereco: String?): Int {
         try {
             val sql = "INSERT INTO Cliente (nome, cpf, endereco) VALUES ('$nome', '$cpf', ?)"
             val preparedStatement = connection.prepareStatement(sql)
@@ -16,15 +16,22 @@ class TableClienteService {
             val rows = preparedStatement.executeUpdate()
 
             if (rows > 0) {
-                println("Cliente $nome adicionado com sucesso!")
+                println("Cliente cadastrado com sucesso. Agora vamos criar sua conta!\n")
             } else {
                 println("Erro ao adicionar o cliente $nome.")
+            }
+
+            val generatedKeys = preparedStatement.generatedKeys
+            if (generatedKeys.next()) {
+                val clienteId = generatedKeys.getInt(1)
+                return clienteId
             }
 
             preparedStatement.close()
         } catch (e: SQLException) {
             e.printStackTrace()
         }
+        return -1
     }
 
     fun deleteCliente(id: Int) {
