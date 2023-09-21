@@ -5,7 +5,7 @@ import java.sql.SQLException
 
 
 class TableClienteService {
-    private val connection = Connect().creatConnect()
+    var connection = Connect().creatConnect()
 
     fun addCliente(nome: String, cpf: String, endereco: String?): Int {
         try {
@@ -16,7 +16,7 @@ class TableClienteService {
             val rows = preparedStatement.executeUpdate()
 
             if (rows > 0) {
-                println("Cliente cadastrado com sucesso. Agora vamos criar sua conta!\n")
+                println("Cliente cadastrado com sucesso.\n")
             } else {
                 println("Erro ao adicionar o cliente $nome.")
             }
@@ -67,26 +67,6 @@ class TableClienteService {
             }
             resultSet.close()
             statement.close()
-        } catch (e: SQLException) {
-            e.printStackTrace()
-        }
-    }
-
-    fun updateCliente(id: Int, novoNome: String, novoCpf: String, novoEndereco: String?) {
-        try {
-            val sql = "UPDATE Cliente SET nome='$novoNome', cpf='$novoCpf', endereco=? WHERE id=$id"
-            val preparedStatement = connection.prepareStatement(sql)
-            preparedStatement.setString(1, novoEndereco)
-
-            val rows = preparedStatement.executeUpdate()
-
-            if (rows > 0) {
-                println("Cliente com ID $id atualizado com sucesso!")
-            } else {
-                println("Cliente com ID $id não encontrado.")
-            }
-
-            preparedStatement.close()
         } catch (e: SQLException) {
             e.printStackTrace()
         }

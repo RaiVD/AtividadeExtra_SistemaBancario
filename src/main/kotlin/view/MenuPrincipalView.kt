@@ -8,7 +8,7 @@ import view.gerenteView.MenuGerente
 class MenuPrincipalView {
     private val inputUserModel = InputUserModel()
     fun start() {
-        println("\n========================== Gerenciamento de Vendas - SimCity ============================")
+        println("\n========================== Banco SimCity ============================")
         var option: Int
         do {
             printMenu()
@@ -30,13 +30,10 @@ class MenuPrincipalView {
                     val email_user = inputUserModel.readStringFromUser("E-mail: ")
                     val password_user = inputUserModel.readIntFromUser("Senha: ")
                     if (ValidDataBaseModel.isValidGerenteCredentials(email_user, password_user)) {
-                        MenuGerente()
+                        MenuGerente().start()
                     } else {
                         println("E-mail ou Senha invalidos!")
                     }
-                }
-                3 -> {
-                    CadastrarClienteView().cadastroCliente()
                 }
                 else -> println("Opção inválida, tente novamente!")
             }
@@ -44,6 +41,6 @@ class MenuPrincipalView {
     }
 
     private fun printMenu() {
-        println("\n0. Sair | 1. Login Cliente | 2. Login Gerente | 3. Criar Conta")
+        println("\n0. Sair | 1. Login Cliente | 2. Login Gerente")
     }
 }

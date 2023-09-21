@@ -32,11 +32,13 @@ class ClienteView {
     }
 
     fun Deletar() {
-
+        val id = inputUserModel.readIntFromUser("Informe o ID do cliente que deseja deletar: ")
+        tableClienteService.deleteCliente(id)
     }
 
     fun ListarTodos() {
-
+        println("Lista de Clientes:")
+        tableClienteService.listClientes()
     }
 
     private fun printMenu() {

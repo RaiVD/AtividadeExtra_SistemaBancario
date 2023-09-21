@@ -7,8 +7,6 @@ import view.MenuPrincipalView
 
 class MenuGerente {
     private val inputUserModel = InputUserModel()
-    private val transferenciaService = TableTransferenciaService()
-    private val contaBancaria = ContaBancaria()
     fun start() {
         var option: Int
         do {
@@ -17,47 +15,12 @@ class MenuGerente {
 
             when (option) {
                 0 -> MenuPrincipalView()
-                1 -> transferencia()
-                2 -> deposito()
-                3 -> saque()
-                4 -> verSaldo()
+                1 -> ClienteView().start()
+                2 -> ContaBancariaView().start()
+                3 -> TransferenciasView().start()
                 else -> println("Opção inválida, tente novamente!")
             }
         } while (option != 0)
-    }
-
-    fun transferencia() {
-        val valor = inputUserModel.readDoubleFromUser("Qual o valor da Transferencia: ")
-        val idDestino = inputUserModel.readIntFromUser("Qual o ID da conta de destino: ")
-        val idOrigem = inputUserModel.readIntFromUser("Qual o ID da sua conta: ")
-
-        transferenciaService.addTransferencia(valor, idOrigem, idDestino)
-    }
-
-    fun deposito() {
-        val valor = inputUserModel.readDoubleFromUser("Qual o valor do Depósito: ")
-        val contaId = inputUserModel.readIntFromUser("Qual o ID da sua conta: ")
-
-        contaBancaria.realizarDeposito(contaId, valor)
-    }
-
-    fun saque() {
-        val valor = inputUserModel.readDoubleFromUser("Qual o valor do Saque: ")
-        val contaId = inputUserModel.readIntFromUser("Qual o ID da sua conta: ")
-
-        contaBancaria.realizarSaque(contaId, valor)
-    }
-
-    fun verSaldo() {
-        val contaId = inputUserModel.readIntFromUser("Qual o ID da sua conta: ")
-
-        val saldo = contaBancaria.verificarSaldo(contaId)
-
-        if (saldo != null) {
-            println("Saldo da conta: R$ $saldo")
-        } else {
-            println("Conta não encontrada.")
-        }
     }
 
     private fun printMenu() {
@@ -65,8 +28,7 @@ class MenuGerente {
             "\n0. Menu Principal | " +
                     "1. Cliente | " +
                     "2. Contas Bancarias | " +
-                    "3. Transferencias | " +
-                    "4. Verificar Saldo"
+                    "3. Transferencias"
         )
     }
 }
