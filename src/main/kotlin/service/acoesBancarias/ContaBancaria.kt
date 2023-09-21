@@ -5,7 +5,7 @@ import java.sql.SQLException
 
 class ContaBancaria() {
 
-    private val connection = Connect().creatConnect()
+    var connection = Connect().creatConnect()
 
     fun verificarSaldo(contaId: Int): Double? {
         try {

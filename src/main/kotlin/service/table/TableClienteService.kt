@@ -1,14 +1,19 @@
 package service.table
 
 import connection.Connect
+import model.ValidDataBaseModel
+import model.ValidDataBaseModel.Companion.isValidClienteInfo
 import java.sql.SQLException
 
 
 class TableClienteService {
     var connection = Connect().creatConnect()
 
-    fun addCliente(nome: String, cpf: String, endereco: String?): Int {
+    fun addCliente(nome: String, cpf: String, endereco: String): Int {
         try {
+            if(!isValidClienteInfo(nome, cpf, endereco)){
+                println("Valores não podem ser nulos ou vazios")
+            }
             val sql = "INSERT INTO Cliente (nome, cpf, endereco) VALUES ('$nome', '$cpf', ?)"
             val preparedStatement = connection.prepareStatement(sql)
             preparedStatement.setString(1, endereco)
@@ -71,4 +76,6 @@ class TableClienteService {
             e.printStackTrace()
         }
     }
+
+
 }

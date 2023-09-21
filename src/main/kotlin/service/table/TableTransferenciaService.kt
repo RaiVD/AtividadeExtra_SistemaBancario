@@ -6,7 +6,7 @@ import java.sql.Timestamp
 
 class TableTransferenciaService {
 
-    private val connection = Connect().creatConnect()
+    var connection = Connect().creatConnect()
 
     fun addTransferencia(valor: Double, contaOrigemId: Int, contaDestinoId: Int) {
         try {

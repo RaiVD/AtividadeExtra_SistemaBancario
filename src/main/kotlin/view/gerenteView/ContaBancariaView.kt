@@ -21,6 +21,7 @@ class ContaBancariaView {
                 2 -> Deletar()
                 3 -> ListarTodos()
                 4 -> buscarContaPorId()
+                5 -> contasDoCliente()
                 else -> println("Opção inválida, tente novamente!")
             }
         } while (option != 0)
@@ -38,7 +39,11 @@ class ContaBancariaView {
             println("Erro ao cadastrar a conta.")
         }
     }
-
+    fun contasDoCliente(){
+        val id = inputUserModel.readIntFromUser("Informe o ID do cliente que deseja deletar: ")
+        println("Contas do cliente: ")
+        tableContaBancariaService.listContasPorCliente(id)
+    }
 
     fun Deletar() {
         val id = inputUserModel.readIntFromUser("Informe o ID da conta bancária que deseja deletar: ")
@@ -62,7 +67,8 @@ class ContaBancariaView {
                     "1. Adicionar | " +
                     "2. Deletar  | " +
                     "3. Listar Clientes | " +
-                    "4. Buscar Conta Por ID"
+                    "4. Buscar Conta Por ID | " +
+                    "5. Listar contas de um cliente"
         )
     }
     private fun validarTipoConta(tipo: String): TipoConta? {

@@ -35,6 +35,9 @@ class TableClienteServiceTest {
         `when`(mockResultSet.next()).thenReturn(true)
         `when`(mockResultSet.getInt(1)).thenReturn(1)
 
+        val clienteService = TableClienteService()
+        clienteService.connection = mockConnection
+
         val clienteId = clienteService.addCliente("João", "12345678901", "Rua A")
 
         verify(mockPreparedStatement, times(1)).executeUpdate()
@@ -43,6 +46,7 @@ class TableClienteServiceTest {
 
         assert(clienteId == 1)
     }
+
 
     @Test
     fun testAddClienteNotValid() {

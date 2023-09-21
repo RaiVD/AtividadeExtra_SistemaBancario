@@ -7,10 +7,11 @@ import kotlin.random.Random
 
 class TableContaBancariaService {
 
-    private val connection = Connect().creatConnect()
+    var connection = Connect().creatConnect()
 
     fun addContaBancaria(clienteId: Int, tipo: TipoConta, senha: Int) {
         try {
+
             val numeroConta = gerarNumeroConta()
 
             val sql =
@@ -93,6 +94,30 @@ class TableContaBancariaService {
                 println("ID: $id | Número da Conta: $numeroConta | Saldo: $saldo | ID do Cliente: $clienteId | Tipo da Conta: $tipo")
             } else {
                 println("Conta Bancária com ID $id não encontrada.")
+            }
+
+            resultSet.close()
+            preparedStatement.close()
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+    }
+    fun listContasPorCliente(clienteId: Int) {
+        try {
+            val sql = "SELECT id, numero_conta, saldo, tipo_conta FROM conta_bancaria " +
+                    "WHERE cliente_id = ?"
+            val preparedStatement = connection.prepareStatement(sql)
+            preparedStatement.setInt(1, clienteId)
+
+            val resultSet = preparedStatement.executeQuery()
+
+            while (resultSet.next()) {
+                val id = resultSet.getInt("id")
+                val numeroConta = resultSet.getString("numero_conta")
+                val saldo = resultSet.getDouble("saldo")
+                val tipo = resultSet.getString("tipo_conta")
+
+                println("ID: $id | Número da Conta: $numeroConta | Saldo: $saldo | Tipo da Conta: $tipo")
             }
 
             resultSet.close()
